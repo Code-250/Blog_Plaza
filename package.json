@@ -5,7 +5,6 @@
   "main": "index.js",
   "dependencies": {
     "babel": "^6.23.0",
-    "babel-watch": "^7.4.0",
     "bcrypt": "^5.0.0",
     "config": "^3.3.3",
     "eslint": "^7.20.0",
