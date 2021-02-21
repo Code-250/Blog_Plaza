@@ -1,6 +1,10 @@
 {
   "name": "blog_plaza",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.15.1",
+    "npm": "7.6.3"
+  },
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -11,14 +15,14 @@
     "db-drop": "cross-env NODE_ENV=test sequelize db:drop",
     "db-create": "cross-env NODE_ENV=test sequelize db:create",
     "test-migrate": "cross-env NODE_ENV=test npm run migrate",
-    "build-babel": "babel ./src --out-dir build",
-    "start": " npm run pro",
+    "build-babel": "babel ./src --copy-files --out-dir build",
+    "start": "npm run pro",
     "test": "cross-env NODE_ENV=test npm run db-drop && npm run db-create && npm run test-migrate && cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register ./src/tests/   --timeout 20000 --exit || true",
-    "coverage": "cross-env NODE_ENV=test npm run db-drop && npm run db-create && npm run test-migrate && cross-env NODE_ENV=test mocha --require @babel/register ./src/tests/  --timeout 300000 --exit || true nyc --reporter=lcov --reporter=text ",
+    "coverage": "cross-env NODE_ENV=test npm run db-drop && npm run db-create && npm run test-migrate && cross-env NODE_ENV=test mocha --require @babel/register src/tests/postTest.js  --timeout 300000 --exit || true nyc --reporter=lcov --reporter=text ",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "drop-db": " sequelize db:drop",
-    "create-db": " sequelize db:create",
-    "pro": " cross-env NODE_ENV=production npm run migration && cross-env NODE_ENV=production npm run build-babel && babel-node ./src/server.js"
+    "drop-db": "npx sequelize db:drop",
+    "create-db": "npx sequelize db:create",
+    "pro": "cross-env NODE_ENV=production npm run migration:undo && npm run migrate -- --env production && cross-env NODE_ENV=production npm run build-babel && babel-node ./build/server.js"
   },
   "repository": {
     "type": "git",
@@ -37,14 +41,16 @@
   "devDependencies": {
     "chai": "^4.3.4",
     "chai-http": "^4.3.0",
-    "cors": "^2.8.5",
     "coveralls": "^3.1.0",
     "cross-env": "^7.0.3",
+    "dotenv": "^8.2.0",
     "eslint": "^7.22.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
+    "express": "^4.17.1",
     "mocha": "^8.3.2",
     "mocha-lcov-reporter": "^1.3.0",
+    "mysql2": "^2.2.5",
     "nodemon": "^2.0.7",
     "nyc": "^15.1.0"
   },
@@ -58,6 +64,7 @@
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.25.1",
     "core-js": "^3.9.1",
+    "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "eslint-config-prettier": "^8.1.0",

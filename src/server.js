@@ -1,6 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import cors from "cors";
+import fileUpload from "express-fileupload";
 import allRoutes from "./app/routes/index";
 import { serve, setup } from "swagger-ui-express";
 import docs from "./docs/swagger.json";
@@ -10,8 +12,9 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
+app.use(fileUpload({ useTempFiles: true }));
 app.use(morgan("dev"));
 app.use("/api", allRoutes);
 app.use("/api/doc", serve, setup(docs));
