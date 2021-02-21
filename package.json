@@ -7,11 +7,15 @@
   "dependencies": {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     "@hapi/joi": "^17.1.1",
 >>>>>>> e6d447e (done with setting up our environment)
 =======
 >>>>>>> c54a3f426cdc7091a4c846272236f792a9d12d75
+=======
+    "@hapi/joi": "^17.1.1",
+>>>>>>> 3078094 (done with setting up our environment)
     "babel": "^6.23.0",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
@@ -62,6 +66,7 @@
   "homepage": "https://github.com/Code-250/Blog_Plaza#readme"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
@@ -69,3 +74,6 @@
 =======
 }
 >>>>>>> c54a3f426cdc7091a4c846272236f792a9d12d75
+=======
+}
+>>>>>>> 3078094 (done with setting up our environment)
