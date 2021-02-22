@@ -2,11 +2,13 @@
   "name": "blog_plaza",
   "version": "1.0.0",
   "description": "creating a blog platform",
-  "main": "index.js",
+  "main": "src/server.js",
   "dependencies": {
     "babel": "^6.23.0",
     "bcrypt": "^5.0.0",
     "config": "^3.3.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "eslint": "^7.20.0",
     "express": "^4.17.1",
     "happy": "^0.13.3",
@@ -17,9 +19,13 @@
     "prettier": "^2.2.1",
     "sequelize": "^6.5.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js",
+    "dev": "nodemon",
+    "test": "test"
   },
   "repository": {
     "type": "git",
