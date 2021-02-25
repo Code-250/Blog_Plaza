@@ -1,21 +1,25 @@
-const express = require("express");
+import express, { json, urlencoded } from "express";
+import cors from "cors";
+import Post from "./Database/Models/PostsModel.js";
+import PostsRouter from "./App/Routes/Blog/PostsRoute.js";
 
-const cors = require("cors");
+// importing Routes
 
 const app = express();
 // express request of content
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-const db = require("./Database/Models");
-
-db.sequelize.sync({force: true}).then(() => {});
+app.use(json());
+app.use(urlencoded({ extended: true }));
 
 app.get("/", (request, response) => {
-  response.json({ message: "Hello world this is richard" });
+  response.json({
+    message: "hello richard",
+  });
 });
-
+Post.sequelize.sync({ force: true }).then(() => {
+  console.log("database conneted waaaw!!!");
+});
+app.use("/api/posts", PostsRouter);
 // set listener for request
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
