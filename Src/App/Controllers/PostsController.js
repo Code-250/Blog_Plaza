@@ -6,13 +6,13 @@ const Op = Sequelize.Op;
 
 export const createPost = async (request, response) => {
   // validate request
-  // if (!request.title) {
-  //   response.status(400).json({
-  //     status: 400,
-  //     message: "post content can not be empty!",
-  //   });
-  //   return;
-  // }
+  if (!request.title) {
+    response.status(400).json({
+      status: 400,
+      message: "post content can not be empty!",
+    });
+    return;
+  }
   //   Create post input fields
   const posts = {
     title: request.body.title,
