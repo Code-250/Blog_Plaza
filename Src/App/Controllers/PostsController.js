@@ -6,13 +6,13 @@ const Op = Sequelize.Op;
 
 export const createPost = async (request, response) => {
   // validate request
-  if (!request.title) {
-    response.status(400).json({
-      status: 400,
-      message: "post content can not be empty!",
-    });
-    return;
-  }
+  // if (!request.title) {
+  //   response.status(400).json({
+  //     status: 400,
+  //     message: "post content can not be empty!",
+  //   });
+  //   return;
+  // }
   //   Create post input fields
   const posts = {
     title: request.body.title,
@@ -21,11 +21,16 @@ export const createPost = async (request, response) => {
   // saving data to database
   try {
     let createData = await Post.create(posts);
-    if (createData) {
+    if (createData.title && createData.description) {
       response.json({
         status: 201,
         message: "Post created Successfully",
         data: createData,
+      });
+    } else {
+      response.status(404).json({
+        status: 404,
+        message: "something went wrong ",
       });
     }
   } catch (err) {
@@ -41,7 +46,7 @@ export const createPost = async (request, response) => {
 
 export const getPosts = async (request, response) => {
   const title = request.query.title;
-  const condition = title ? { title: { [Op.like]: `%${title}` } } : null;
+  const condition = title;
   try {
     let getData = await Post.findAll({ where: condition });
     if (getData) {
@@ -64,13 +69,26 @@ export const getPosts = async (request, response) => {
 
 export const getPostById = async (request, response) => {
   const id = request.params.id;
+  // if (!request.id) {
+  //   response.status(404).json({
+  //     status: 404,
+  //     message: "post not found",
+  //   });
+  //   return;
+  // }
   try {
     let getData = await Post.findOne({ where: { id: id } });
+
     if (getData) {
       response.status(200).json({
         status: 200,
         message: `post with id ${id} fetched Successfully`,
         data: getData,
+      });
+    } else {
+      response.status(404).json({
+        status: 404,
+        message: "post is not avairable",
       });
     }
   } catch (err) {
@@ -85,13 +103,26 @@ export const getPostById = async (request, response) => {
 
 export const updatePost = async (request, response) => {
   const id = request.params.id;
+  // validate post update
+  // if (!request.id) {
+  //   response.status(404).json({
+  //     status: 404,
+  //     message: "post not found to update",
+  //   });
+  //   return;
+  // }
   try {
     let updateData = await Post.update(request.body, { where: { id: id } });
-    if (updateData > 0) {
+    if (updateData) {
       response.status(200).json({
         status: 200,
         message: `Post withid ${id} updatedSuccessfully`,
         data: updateData,
+      });
+    } else {
+      response.status(404).json({
+        status: 404,
+        message: "Post was not Updated",
       });
     }
   } catch (err) {
@@ -106,6 +137,13 @@ export const updatePost = async (request, response) => {
 
 export const deletePost = async (request, response) => {
   const id = request.params.id;
+  // if (!request.id) {
+  //   response.status(404).json({
+  //     status: 404,
+  //     message: "post to delete not found",
+  //   });
+  //   return;
+  // }
   try {
     let deleteData = await Post.destroy({ where: { id: id } });
     if (deleteData) {
@@ -113,6 +151,11 @@ export const deletePost = async (request, response) => {
         status: 200,
         message: `Delete Post with id ${id} was Successful`,
         data: deleteData,
+      });
+    } else {
+      response.status(404).json({
+        status: 404,
+        message: "oooops!! we were not able to delete your posrt",
       });
     }
   } catch (err) {
