@@ -21,16 +21,26 @@ export const createPost = async (request, response) => {
   // saving data to database
   try {
     let createData = await Post.create(posts);
-    if (createData.title && createData.description) {
-      response.json({
-        status: 201,
-        message: "Post created Successfully",
-        data: createData,
+    if (!createData.title && !createData.description) {
+      response.status(200).json({
+        status: 200,
+        message: "title and description are required ",
+      });
+    } else if (createData.title.length <= 3) {
+      response.status(200).send({
+        status: 200,
+        message: "title is required atleast 5 characters",
+      });
+    } else if (createData.description.length <= 5) {
+      response.status(200).send({
+        status: 200,
+        message: "description is required atleeast 6 characters",
       });
     } else {
-      response.status(404).json({
-        status: 404,
-        message: "something went wrong ",
+      response.status(200).json({
+        status: 200,
+        message: "Post created Successfully",
+        data: createData,
       });
     }
   } catch (err) {
@@ -69,13 +79,6 @@ export const getPosts = async (request, response) => {
 
 export const getPostById = async (request, response) => {
   const id = request.params.id;
-  // if (!request.id) {
-  //   response.status(404).json({
-  //     status: 404,
-  //     message: "post not found",
-  //   });
-  //   return;
-  // }
   try {
     let getData = await Post.findOne({ where: { id: id } });
 
@@ -88,7 +91,7 @@ export const getPostById = async (request, response) => {
     } else {
       response.status(404).json({
         status: 404,
-        message: "post is not avairable",
+        message: "post is not available",
       });
     }
   } catch (err) {
@@ -103,14 +106,6 @@ export const getPostById = async (request, response) => {
 
 export const updatePost = async (request, response) => {
   const id = request.params.id;
-  // validate post update
-  // if (!request.id) {
-  //   response.status(404).json({
-  //     status: 404,
-  //     message: "post not found to update",
-  //   });
-  //   return;
-  // }
   try {
     let updateData = await Post.update(request.body, { where: { id: id } });
     if (updateData) {
@@ -137,13 +132,6 @@ export const updatePost = async (request, response) => {
 
 export const deletePost = async (request, response) => {
   const id = request.params.id;
-  // if (!request.id) {
-  //   response.status(404).json({
-  //     status: 404,
-  //     message: "post to delete not found",
-  //   });
-  //   return;
-  // }
   try {
     let deleteData = await Post.destroy({ where: { id: id } });
     if (deleteData) {
@@ -155,7 +143,7 @@ export const deletePost = async (request, response) => {
     } else {
       response.status(404).json({
         status: 404,
-        message: "oooops!! we were not able to delete your posrt",
+        message: "oooops!! post not found to be deleted",
       });
     }
   } catch (err) {
