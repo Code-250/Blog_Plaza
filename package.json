@@ -5,7 +5,10 @@
   "main": "src/server.js",
   "type": "module",
   "dependencies": {
+<<<<<<< HEAD
+=======
     "@hapi/joi": "^17.1.1",
+>>>>>>> e6d447e (done with setting up our environment)
     "babel": "^6.23.0",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
@@ -54,4 +57,8 @@
     "url": "https://github.com/Code-250/Blog_Plaza/issues"
   },
   "homepage": "https://github.com/Code-250/Blog_Plaza#readme"
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e6d447e (done with setting up our environment)

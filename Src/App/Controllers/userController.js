@@ -2,7 +2,6 @@ import Sequelize from "sequelize";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../../Database/models/UserModels.js";
-import { response } from "express";
 import { secret } from "../../Database/Services/secretKey.js";
 import { signupValidator } from "../Helpers/signupValidator.js";
 
@@ -39,7 +38,8 @@ export const signUp = async (request, response, next) => {
       }
     }
   } catch (err) {
-    response.status(500).send({
+    console.log(err);
+    response.status(500).json({
       status: 500,
       message: "something went wrong",
     });
@@ -65,7 +65,7 @@ export const Login = (request, response) => {
                   usename: user.username,
                   userId: user.id,
                 },
-                proccess.secret.env,
+                proccess.env.secret,
                 (err, token) => {
                   response.status(200).send({
                     status: 200,

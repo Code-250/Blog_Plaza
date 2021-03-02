@@ -16,7 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (request, response) => {
   response.json({ message: "Hello world this is richard" });
 });
-
 app.use("/api/posts", PostsRouter);
 
 app.use("/api/users", UserRouter);
