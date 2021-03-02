@@ -1,7 +1,10 @@
 import express from "express";
 import cors from "cors";
+<<<<<<< HEAD
 import PostsRouter from "./App/Routes/Blog/postsRoute.js";
 import Post from "./Database/Models/PostsModel.js";
+=======
+>>>>>>> bf8cc44 (managed tu create users)
 import Post from "./Database/models/PostsModel.js";
 import User from "./Database/models/UserModels.js";
 import PostsRouter from "./App/Routes/Blog/PostsRoute.js";
@@ -21,11 +24,14 @@ app.get("/", (request, response) => {
   response.json({ message: "Hello world this is richard" });
 });
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 response.json({
   message: "hello richard",
 });
 >>>>>>> 363f212 (issue)
+=======
+>>>>>>> bf8cc44 (managed tu create users)
 app.use("/api/posts", PostsRouter);
 
 app.use("/api/users", UserRouter);
