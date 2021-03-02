@@ -5,8 +5,7 @@ import {
   HOST,
   dialect as _dialect,
   pool as _pool,
-} from "../Services/db_config.js";
-
+} from "../Services/system/db_config.js";
 import Sequelize from "sequelize";
 
 export const sequelize = new Sequelize(DB, USER, PASSWORD, {

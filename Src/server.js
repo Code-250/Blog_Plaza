@@ -1,7 +1,9 @@
 import express, { json, urlencoded } from "express";
 import cors from "cors";
-import Post from "./Database/Models/PostsModel.js";
+import Post from "./Database/models/PostsModel.js";
+import User from "./Database/models/UserModels.js";
 import PostsRouter from "./App/Routes/Blog/PostsRoute.js";
+import UserRouter from "./App/Routes/Auth/userRoute.js";
 
 // importing Routes
 
@@ -16,10 +18,9 @@ app.get("/", (request, response) => {
     message: "hello richard",
   });
 });
-Post.sequelize.sync({ force: true }).then(() => {
-  console.log("database conneted waaaw!!!");
-});
 app.use("/api/posts", PostsRouter);
+
+app.use("/api/users", UserRouter);
 // set listener for request
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
