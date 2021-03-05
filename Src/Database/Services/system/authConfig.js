@@ -1,3 +1,1 @@
-export const secretKey = {
-  secret: "richardNixon",
-};
+export const secretKey = "richardNixon";
