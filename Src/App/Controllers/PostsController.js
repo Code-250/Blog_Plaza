@@ -21,26 +21,24 @@ export const createPost = async (request, response) => {
   // saving data to database
   try {
     let createData = await Post.create(posts);
-    // if (!createData.title && !createData.description) {
-    //   return response.status(200).send({
-    //     status: 200,
-    //     message: "title and description are required",
-    //   });
-    // } else if (createData.title.length <= 3) {
-    //   return response.status(200).send({
-    //     status: 200,
-    //     message: "title is required!",
-    //   });
-    // } else if (createData.description.length <= 5) {
-    //   return response.status(200).send({
-    //     status: 200,
-    //     message: "descirption is required",
-    //   });
-    // }
-    // if (createData) {
-    if (createData) {
-      response.json({
-        status: 201,
+    if (!createData.title && !createData.description) {
+      return response.status(200).send({
+        status: 200,
+        message: "title and description are required",
+      });
+    } else if (createData.title.length <= 3) {
+      return response.status(200).send({
+        status: 200,
+        message: "title is required!",
+      });
+    } else if (createData.description.length <= 5) {
+      return response.status(200).send({
+        status: 200,
+        message: "descirption is required",
+      });
+    } else {
+      response.status(200).send({
+        status: 200,
         message: "Post created Successfully",
         data: createData,
       });
@@ -89,11 +87,11 @@ export const getPostById = async (request, response) => {
         message: `post with id ${id} fetched Successfully`,
         data: getData,
       });
-      // } else {
-      //   response.status(200).send({
-      //     status: 200,
-      //     message: "post not found",
-      //   });
+    } else {
+      response.status(200).send({
+        status: 200,
+        message: "post not found",
+      });
     }
   } catch (err) {
     console.log(err);
@@ -109,24 +107,23 @@ export const updatePost = async (request, response) => {
   const id = request.params.id;
   try {
     let updateData = await Post.update(request.body, { where: { id: id } });
+
     if (updateData) {
       response.status(200).json({
         status: 200,
-        message: `Post withid ${id} updatedSuccessfully`,
-        data: updateData,
+        message: `Post withid ${id} updated Successfully`,
       });
-      // } else {
-      //   response.status(200).send({
-      //     status: 200,
-      //     message: "post not found to update",
-      //   });
-      // }
+    } else {
+      response.status(404).send({
+        status: 404,
+        message: "post not found to update",
+      });
     }
   } catch (err) {
     console.log(err);
     response.status(500).json({
       status: 500,
-      message: `failed to update pst with id${id}`,
+      message: `failed to update pst with id ${id}`,
     });
   }
 };
@@ -142,11 +139,11 @@ export const deletePost = async (request, response) => {
         message: `Delete Post with id ${id} was Successful`,
         data: deleteData,
       });
-      // } else {
-      //   response.status(200).send({
-      //     status: 200,
-      //     message: "post not found to delete",
-      //   });
+    } else {
+      response.status(404).send({
+        status: 404,
+        message: "post not found to delete",
+      });
     }
   } catch (err) {
     console.log(err);
