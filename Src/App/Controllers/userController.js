@@ -1,9 +1,7 @@
 import Sequelize from "sequelize";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { secretKey } from "../../Database/Services/system/authConfig.js";
 import User from "../../Database/models/UserModels.js";
-import { response } from "express";
 import { secret } from "../../Database/Services/secretKey.js";
 import { signupValidator } from "../Helpers/signupValidator.js";
 
