@@ -5,14 +5,6 @@ const Op = Sequelize.Op;
 // create and Save New post
 
 export const createPost = async (request, response) => {
-  // validate request
-  // if (!request.title) {
-  //   response.status(400).json({
-  //     status: 400,
-  //     message: "post content can not be empty!",
-  //   });
-  //   return;
-  // }
   //   Create post input fields
   const posts = {
     title: request.body.title,
@@ -107,7 +99,6 @@ export const updatePost = async (request, response) => {
   const id = request.params.id;
   try {
     let updateData = await Post.update(request.body, { where: { id: id } });
-
     if (updateData) {
       response.status(200).json({
         status: 200,
