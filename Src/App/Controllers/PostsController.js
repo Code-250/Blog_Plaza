@@ -100,6 +100,7 @@ export const updatePost = async (request, response) => {
   const id = request.params.id;
   try {
     let updateData = await Post.update(request.body, { where: { id: id } });
+
     if (updateData) {
       response.status(200).json({
         status: 200,
