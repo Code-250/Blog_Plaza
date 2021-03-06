@@ -108,23 +108,23 @@ export const updatePost = async (request, response) => {
   const id = request.params.id;
   try {
     let updateData = await Post.update(request.body, { where: { id: id } });
+
     if (updateData) {
       response.status(200).json({
         status: 200,
-        message: `Post withid ${id} updatedSuccessfully`,
-        data: updateData,
+        message: `Post withid ${id} updated Successfully`,
       });
     } else {
-      response.status(404).json({
+      response.status(404).send({
         status: 404,
-        message: "Post was not Updated",
+        message: "post not found to update",
       });
     }
   } catch (err) {
     console.log(err);
     response.status(500).json({
       status: 500,
-      message: `failed to update pst with id${id}`,
+      message: `failed to update pst with id ${id}`,
     });
   }
 };

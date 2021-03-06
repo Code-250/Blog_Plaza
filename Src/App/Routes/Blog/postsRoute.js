@@ -7,11 +7,12 @@ import {
   updatePost,
   deletePost,
 } from "../../Controllers/PostsController.js";
+import { checkAuth } from "../../Middlewares/checkAuth.js";
 
 const PostsRouter = Router();
 
 // create new post
-PostsRouter.post("/", createPost);
+PostsRouter.post("/", checkAuth, createPost);
 
 // retrieve all posts
 PostsRouter.get("/", getPosts);
@@ -20,9 +21,9 @@ PostsRouter.get("/", getPosts);
 PostsRouter.get("/:id", getPostById);
 
 // update posts
-PostsRouter.put("/:id", updatePost);
+PostsRouter.put("/:id", checkAuth, updatePost);
 
 // delete post by id
-PostsRouter.delete("/:id", deletePost);
+PostsRouter.delete("/:id", checkAuth, deletePost);
 
 export default PostsRouter;
