@@ -16,6 +16,8 @@ app.get("/", (request, response) => {
 });
 
 app.use("/api/posts", PostsRouter);
+
+app.use("/api/users", UserRouter);
 // set listener for request
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

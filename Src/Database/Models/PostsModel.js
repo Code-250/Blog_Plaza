@@ -1,7 +1,6 @@
-import Sequelize from "sequelize";
 import { sequelize } from "./dbSequel_config.js";
-
-const Post = sequelize.define("posts", {
+import Sequelize from "sequelize";
+const Post = sequelize.define("post", {
   title: {
     type: Sequelize.STRING,
   },
@@ -10,5 +9,4 @@ const Post = sequelize.define("posts", {
     type: Sequelize.STRING,
   },
 });
-
 export default Post;

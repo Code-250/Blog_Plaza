@@ -1,4 +1,4 @@
-import Post from "../../Database/Models/PostsModel.js";
+import Post from "../../Database/models/PostsModel.js";
 import Sequelize from "sequelize";
 const Op = Sequelize.Op;
 
