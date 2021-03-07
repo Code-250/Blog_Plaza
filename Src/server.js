@@ -20,6 +20,12 @@ Post.sequelize.sync({ force: true }).then(() => {});
 app.get("/", (request, response) => {
   response.json({ message: "Hello world this is richard" });
 });
+<<<<<<< HEAD
+=======
+response.json({
+  message: "hello richard",
+});
+>>>>>>> 363f212 (issue)
 app.use("/api/posts", PostsRouter);
 
 app.use("/api/users", UserRouter);
