@@ -25,6 +25,7 @@ app.get("/", (request, response) => {
 });
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 response.json({
   message: "hello richard",
@@ -32,6 +33,11 @@ response.json({
 >>>>>>> 363f212 (issue)
 =======
 >>>>>>> bf8cc44 (managed tu create users)
+=======
+response.json({
+  message: "hello richard",
+});
+>>>>>>> 04a11b73599f968ae6eda652344ad1dd8ca0e85b
 app.use("/api/posts", PostsRouter);
 
 app.use("/api/users", UserRouter);
