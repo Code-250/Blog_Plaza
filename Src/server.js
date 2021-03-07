@@ -25,6 +25,12 @@ app.get("/", (request, response) => {
 response.json({
   message: "hello richard",
 });
+response.json({
+  message: "hello richard",
+});
+response.json({
+  message: "hello richard",
+});
 app.use("/api/posts", PostsRouter);
 
 app.use("/api/users", UserRouter);
