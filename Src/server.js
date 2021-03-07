@@ -2,6 +2,12 @@ import express from "express";
 import cors from "cors";
 import PostsRouter from "./App/Routes/Blog/postsRoute.js";
 import Post from "./Database/Models/PostsModel.js";
+import Post from "./Database/models/PostsModel.js";
+import User from "./Database/models/UserModels.js";
+import PostsRouter from "./App/Routes/Blog/PostsRoute.js";
+import UserRouter from "./App/Routes/Auth/userRoute.js";
+
+// importing Routes
 
 const app = express();
 // express request of content
@@ -14,6 +20,12 @@ Post.sequelize.sync({ force: true }).then(() => {});
 app.get("/", (request, response) => {
   response.json({ message: "Hello world this is richard" });
 });
+<<<<<<< HEAD
+=======
+response.json({
+  message: "hello richard",
+});
+>>>>>>> a9881a0d67ba58bb61c0763e7bcb999a9bf2115b
 app.use("/api/posts", PostsRouter);
 
 app.use("/api/users", UserRouter);
