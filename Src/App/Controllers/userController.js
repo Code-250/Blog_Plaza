@@ -65,7 +65,7 @@ export const Login = (request, response) => {
                   usename: user.username,
                   userId: user.id,
                 },
-                proccess.secret.env,
+                proccess.env.secret,
                 (err, token) => {
                   response.status(200).send({
                     status: 200,
