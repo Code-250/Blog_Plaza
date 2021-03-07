@@ -2,6 +2,12 @@ import express from "express";
 import cors from "cors";
 import PostsRouter from "./App/Routes/Blog/postsRoute.js";
 import Post from "./Database/Models/PostsModel.js";
+import Post from "./Database/models/PostsModel.js";
+import User from "./Database/models/UserModels.js";
+import PostsRouter from "./App/Routes/Blog/PostsRoute.js";
+import UserRouter from "./App/Routes/Auth/userRoute.js";
+
+// importing Routes
 
 const app = express();
 // express request of content
