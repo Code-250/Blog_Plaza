@@ -38,8 +38,7 @@ export const signUp = async (request, response, next) => {
       }
     }
   } catch (err) {
-    console.log(err);
-    response.status(500).json({
+    response.status(500).send({
       status: 500,
       message: "something went wrong",
     });
