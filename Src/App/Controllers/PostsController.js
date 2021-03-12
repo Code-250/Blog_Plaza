@@ -104,6 +104,7 @@ export const updatePost = async (request, response) => {
       response.status(200).json({
         status: 200,
         message: `Post withid ${id} updated Successfully`,
+        data: updateData,
       });
     } else {
       response.status(404).send({
