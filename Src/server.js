@@ -1,26 +1,30 @@
 import express from "express";
-import cors from "cors";
-import Post from "./Database/models/PostsModel.js";
-import User from "./Database/models/UserModels.js";
-import PostsRouter from "./App/Routes/Blog/PostsRoute.js";
-import UserRouter from "./App/Routes/Auth/userRoute.js";
+import morgan from "morgan";
+import dotenv from "dotenv";
+import allRoutes from "./app/routes/index";
+import { serve, setup } from "swagger-ui-express";
+import docs from "./docs/swagger.json";
 
-// importing Routes
+dotenv.config();
 
 const app = express();
-// express request of content
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (request, response) => {
-  response.json({ message: "Hello world this is richard" });
+app.use(express.urlencoded({ extended: false }));
+app.use(morgan("dev"));
+app.use("/api", allRoutes);
+app.use("/api/doc", serve, setup(docs));
+app.get("/", (req, res) => {
+  res.status(200).send({
+    message: "using babel in nodejs",
+    success: "true",
+  });
 });
-app.use("/api/posts", PostsRouter);
-
-app.use("/api/users", UserRouter);
 // set listener for request
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log(`server is up and running on ${port}`);
 });
+
+export default app;
