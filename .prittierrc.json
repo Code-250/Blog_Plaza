@@ -1,8 +1,5 @@
 {
-    "editor.formatOnSave":true,
-    "editor.defaultFormater":"esbenp.prittier-vsCode",
-    "[javascript]":{
-        "editor.defaultFormater":"esbnp.default-vsCode"
-    }
+    "semi": true,
+    "singleQuote": true
     
 }

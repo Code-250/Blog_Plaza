@@ -3,11 +3,12 @@ module.exports = {
     es2021: true,
     commonJS: true,
     node: true,
+    mocha: true,
   },
   extends: ["airbnb-base,'prettier"],
   parserOptions: {
     ecmaVersion: 12,
-    sourceType: "module",
+    sourceType: "commonJs",
   },
   rules: {},
 };

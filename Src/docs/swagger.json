@@ -1,0 +1,370 @@
+{
+    "swagger":"2.0",
+    "info":{
+        "description":"this is documentation of node.js level up justice chat box",
+        "version":"1.0.0",
+        "title":"JUSTICE CHAT BOX API",
+        "contact":{
+            "email":"richmunye@gmail.com",
+            "name":"Richard Munyemana"
+        }
+    },
+    "basePath":"/",
+    "tags":[
+        {
+            "name":"Post",
+        "description":"Post(Blog) sharing information with people through posting blogs"
+        },
+        {
+            "name":"User",
+            "description":"at this collection of all endpoints related to users"
+        }
+        
+    ],
+    "schemes":["http","https"],
+    "paths":{
+        "/api/posts":{
+            "post":{
+                "tags":["Post"],
+                "summary":"create new post <Only authenticated user  can do this>",
+                "dscription":"here we create new post ",
+                "consumes":["multipart/form-data"],
+                "produces":["application/json"],
+                "parameters":[
+                     {
+                        "name": "title",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "userId",
+                        "in": "formData",
+                        "type": "string"
+                    }
+                ],
+                "responses":{
+                    "201":{
+                        "description":"Successfully created post",
+                        "schema":{
+                            "$ref":"#/definitions/Post"
+                        }
+                    },
+                    "409":{
+                        "description":"please fill all required fields"
+                    },
+                    "208":{
+                        "description":"title already exists please create another title"
+                    },
+                    "404":{
+                        "description":"post not created"
+                    }
+                }
+            },
+            "get":{
+                "tags":["Post"],
+                "summary":"this endpoint will display all posts we have",
+                "dscription":" ",
+                "produces":["application/json"],
+                "responses":{
+                    "200":{
+                        "description":"successfully retrieved all posts"
+                    },
+                    "410":{
+                        "description":"no posts found "
+                    }
+                }
+            }
+        },
+        "/api/posts/{postId}":{
+            "get":{
+                "tags":["Post"],
+                "summary":"this endpoint will display post according to passed id",
+                "description":" ",
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"postId",
+                        "in":"path",
+                        "description":" fill postId in the given path",
+                        "required":true,
+                        "type":"string"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"this is a post with passed id"
+                    },
+                    "404":{
+                        "description":"no Post found"
+                    }
+                }
+                
+            },
+
+            "put":{
+                "tags":["Post"],
+                "summary":"this endpoint will update post with given id",
+                "description":" ",
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"postId",
+                        "in":"path",
+                        "description":" fill postId in the given path",
+                        "required":true,
+                        "type":"string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "formData",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "formData",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"post updated successfully"
+                    },
+                    "409":{
+                        "description":"please update"
+                    },
+                    "404":{
+                        "description":"post not found"
+                    }
+                }
+            },
+            "delete":{
+                "tags":["Post"],
+                "summary":"this endpoint will help to delete post with given id",
+                "description":" ",
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"postId",
+                        "in":"path",
+                        "descrpition":"please pass postId here",
+                        "required":true,
+                        "type":"string"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"post deleted Successfuly"
+                    },
+                    "404":{
+                        "description":"post not found to delete"
+                    }
+                }
+            }
+        },
+        "/api/users":{
+            "get":{
+                "tags":["User"],
+                "summary":"at this end point we will display all registered users",
+                "description":" ",
+                "produces":["application/json"],
+                "responses":{
+                    "200":{
+                        "description":"retrieve all registerred users"
+                    },
+                    "404":{
+                        "description":"no registered user foumd"
+                    }
+                }
+            },
+            "post":{
+                "tags":["User"],
+                "summary":"at this endpoint we wi be creating(registering) a user",
+                "description":" ",
+                "consumes":["multipart/form-data"],
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"username",
+                        "in":"formData",
+                        "type":"string",
+                        "required":true
+                    },
+                    {
+                        "name":"email",
+                        "in":"formData",
+                        "type":"string",
+                        "required":true
+                    },
+                    {
+                        "name":"password",
+                        "in":"formData",
+                        "type":"string",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"user successfully registered"
+                    },
+                    "208":{
+                        "description":"given email already exists"
+                    },
+                    "409":{
+                        "description":"please fill all required fields"
+                    },
+                    "500":{
+                        "description":"failed to create a user internal server error"
+                    }
+                }
+            }
+
+        },
+        "/api/users/{userId}":{
+            "get":{
+                "tags":["User"],
+                "summary":"this endpoint displays a user with given id if we have that user",
+                "description":" ",
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"userId",
+                        "in":"path",
+                        "type":"string",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"user with passed id retrieved"
+                    },
+                    "404":{
+                        "description":"user with given id not found"
+                    }
+                }
+            },
+            "put":{
+                "tags":["User"],
+                "summary":"at this endpoint we will ne updating any user informations",
+                "description":" ",
+                "consumes":["multipart/form-data"],
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"userId",
+                        "in":"path",
+                        "type":"string",
+                        "required":true
+                    },
+                    {
+                        "name":"username",
+                        "in":"formData",
+                        "type":"string",
+                        "required":false
+                    },
+                    {
+                        "name":"password",
+                        "in":"formData",
+                        "type":"string",
+                        "required":false
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"successfully updated user with given id"
+                    },
+                    "409":{
+                        "description":"please fill in all fields"
+                    },
+                    "404":{
+                        "description":"user you want to update does not exist"
+                    }
+                }
+            },
+            "delete":{
+                "tags":["User"],
+                "summary":"at this endpoint we will be able to remove(delete) a user with given id",
+                "description":" ",
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"userId",
+                        "in":"path",
+                        "type":"string",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"successfully removed user with given id"
+                    },
+                    "404":{
+                        "description":"user credentials not found to delete"
+                    }
+                }
+            }
+        },
+        "/api/users/login":{
+            "post":{
+                "tags":["User"],
+                "summary":"this endpoint will beauthenticatin a user and generating a token which will be used to create, update and delete post",
+                "description":" ",
+                "consumes":["multipart/form-data"],
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"email",
+                        "in":"formData",
+                        "type":"string",
+                        "required":true
+                    },
+                    {
+                        "name":"password",
+                        "in":"formData",
+                        "type":"string",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"a user is loogedin successfully"
+                    },
+                    "401":{
+                        "description":"wrong credentials emali and password must be valid"
+                    },
+                    "404":{
+                        "description":"user credentials not fuond to authenticate"
+                    },
+                    "409":{
+                        "description":"please fill all required fields"
+                    }
+                }
+            }
+        }
+    },
+    "definitions":{
+        "Post":{
+            "type":"object",
+            "required":["title", "body", "userId"],
+            "properties":{
+                "title":{
+                    "type":"string"
+                },
+                "body":{
+                    "type":"string"
+                },
+                "userId":{
+                    "type":"string"
+                }
+            }
+        }
+    }
+}
