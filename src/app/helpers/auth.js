@@ -1,6 +1,6 @@
-import { config } from 'dotenv';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import { config } from "dotenv";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const { JWT_SECRET, JWT_EXPIRE } = process.env;
 
@@ -15,12 +15,6 @@ class encryption {
     const isvalid = await bcrypt.compare(password, hashed);
     if (!isvalid) return false;
     return isvalid;
-  }
-  static async signToken({ email, id }) {
-    const token = jwt.sign({ email, id }, JWT_SECRET, {
-      expiresIn: JWT_EXPIRE,
-    });
-    return token;
   }
   static async verifyToken(token) {
     const data = jwt.verify(token, JWT_SECRET);

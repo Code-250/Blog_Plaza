@@ -24,14 +24,14 @@ class userController {
     if (errors)
       return respError(
         res,
-        409,
+        400,
         `please provide ${errors[0].context.key}`,
         errors[0]
       );
 
     const hash = await encryptPassword(user.password);
     const emailExists = await findUser({ email: user.email });
-    if (emailExists) return respError(res, 208, "email already exists");
+    if (emailExists) return respError(res, 409, "email already exists");
 
     const createdUser = await createUser({ ...user, password: hash });
     if (!createdUser) return respError(res, 500, "internal server error");
@@ -58,7 +58,7 @@ class userController {
       userValidate.updateUserValidate,
       req.body
     );
-    if (errors) return respError(res, 409, errors[0].message, errors[0]);
+    if (errors) return respError(res, 400, errors[0].message, errors[0]);
     const userUpdated = { ...req.body };
     const hashUpdate = await encryptPassword(userUpdated.password);
     const userUpdate = await updateUser(
@@ -80,7 +80,7 @@ class userController {
     if (errors)
       return respError(
         res,
-        409,
+        400,
         `please provide${errors[0].context.key}`,
         errors[0]
       );

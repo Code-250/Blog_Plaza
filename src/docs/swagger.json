@@ -31,6 +31,12 @@
                 "consumes":["multipart/form-data"],
                 "produces":["application/json"],
                 "parameters":[
+                    {
+                        "name":"authorization",
+                        "in":"header",
+                        "required":true,
+                        "type":"string"
+                    },
                      {
                         "name": "title",
                         "in": "formData",
@@ -44,10 +50,11 @@
                         "type": "string"
                     },
                     {
-                        "name": "userId",
-                        "in": "formData",
-                        "type": "string"
+                        "name":"imageUrl",
+                        "in":"formData",
+                        "type":"file"
                     }
+
                 ],
                 "responses":{
                     "201":{
@@ -56,10 +63,13 @@
                             "$ref":"#/definitions/Post"
                         }
                     },
-                    "409":{
+                    "400":{
                         "description":"please fill all required fields"
                     },
-                    "208":{
+                    "403":{
+                        "description":"this endpoint is allowed for authenticated users"
+                    },
+                    "409":{
                         "description":"title already exists please create another title"
                     },
                     "404":{
@@ -76,7 +86,7 @@
                     "200":{
                         "description":"successfully retrieved all posts"
                     },
-                    "410":{
+                    "404":{
                         "description":"no posts found "
                     }
                 }
@@ -112,8 +122,15 @@
                 "tags":["Post"],
                 "summary":"this endpoint will update post with given id",
                 "description":" ",
+                "consumes":["multipart/form-data"],
                 "produces":["application/json"],
                 "parameters":[
+                    {
+                        "name":"authorization",
+                        "in":"header",
+                        "required":true,
+                        "type":"string"
+                    },
                     {
                         "name":"postId",
                         "in":"path",
@@ -132,14 +149,22 @@
                         "in": "formData",
                         "required": false,
                         "type": "string"
+                    },
+                    {
+                        "name":"imageUrl",
+                        "in":"formData",
+                        "type":"file"
                     }
                 ],
                 "responses":{
                     "200":{
                         "description":"post updated successfully"
                     },
-                    "409":{
-                        "description":"please update"
+                    "400":{
+                        "description":"please update all required fields"
+                    },
+                    "403":{
+                        "description":"this endpoint is for authenticated user only"
                     },
                     "404":{
                         "description":"post not found"
@@ -153,6 +178,12 @@
                 "produces":["application/json"],
                 "parameters":[
                     {
+                        "name":"authorization",
+                        "in":"header",
+                        "required":true,
+                        "type":"string"
+                    },
+                    {
                         "name":"postId",
                         "in":"path",
                         "descrpition":"please pass postId here",
@@ -163,6 +194,9 @@
                 "responses":{
                     "200":{
                         "description":"post deleted Successfuly"
+                    },
+                    "403":{
+                        "description":"this endpoint is allowed for authenticated users"
                     },
                     "404":{
                         "description":"post not found to delete"
@@ -215,10 +249,10 @@
                     "200":{
                         "description":"user successfully registered"
                     },
-                    "208":{
+                    "409":{
                         "description":"given email already exists"
                     },
-                    "409":{
+                    "400":{
                         "description":"please fill all required fields"
                     },
                     "500":{
@@ -259,6 +293,12 @@
                 "produces":["application/json"],
                 "parameters":[
                     {
+                        "name":"authorization",
+                        "in":"header",
+                        "required":true,
+                        "type":"string"
+                    },
+                    {
                         "name":"userId",
                         "in":"path",
                         "type":"string",
@@ -281,8 +321,11 @@
                     "200":{
                         "description":"successfully updated user with given id"
                     },
-                    "409":{
+                    "400":{
                         "description":"please fill in all fields"
+                    },
+                    "403":{
+                        "description":"Only authenticated users"
                     },
                     "404":{
                         "description":"user you want to update does not exist"
@@ -296,6 +339,12 @@
                 "produces":["application/json"],
                 "parameters":[
                     {
+                        "name":"authorization",
+                        "in":"header",
+                        "required":true,
+                        "type":"string"
+                    },
+                    {
                         "name":"userId",
                         "in":"path",
                         "type":"string",
@@ -306,6 +355,9 @@
                     "200":{
                         "description":"successfully removed user with given id"
                     },
+                    "403":{
+                        "description":"Only authenticated User"
+                    },
                     "404":{
                         "description":"user credentials not found to delete"
                     }
@@ -315,7 +367,7 @@
         "/api/users/login":{
             "post":{
                 "tags":["User"],
-                "summary":"this endpoint will beauthenticatin a user and generating a token which will be used to create, update and delete post",
+                "summary":"this endpoint will be authenticated a user and generating a token which will be used to create, update and delete post",
                 "description":" ",
                 "consumes":["multipart/form-data"],
                 "produces":["application/json"],
@@ -335,15 +387,15 @@
                 ],
                 "responses":{
                     "200":{
-                        "description":"a user is loogedin successfully"
+                        "description":"a user is loogedIn successfully"
                     },
                     "401":{
-                        "description":"wrong credentials emali and password must be valid"
+                        "description":"wrong credentials email and password must be valid"
                     },
                     "404":{
-                        "description":"user credentials not fuond to authenticate"
+                        "description":"user credentials not found to authenticate"
                     },
-                    "409":{
+                    "400":{
                         "description":"please fill all required fields"
                     }
                 }
